@@ -1,6 +1,0 @@
-name,sku,price,weight,width,height,depth,categoryId,subcategoryId,description,images
-iPhone 15,IPH15,999.99,200,10,15,1,1,1,Latest Apple iPhone,https://example.com/image1.jpg|https://example.com/image2.jpg
-Samsung S23,SAM23,899.99,220,12,16,2,1,2,Samsung flagship phone,https://example.com/image3.jpg|https://example.com/image4.jpg
-OnePlus 11,OP11,799.99,210,11,15,1.5,1,3,OnePlus premium phone,https://example.com/image5.jpg|https://example.com/image6.jpg
-Google Pixel 7,PIX7,799.99,190,9,14,1.2,2,4,Google's AI-powered phone,https://example.com/image7.jpg|https://example.com/image8.jpg
-Xiaomi Mi 12,MI12,749.99,180,8,13,1.3,2,5,Xiaomi premium series,https://example.com/image9.jpg|https://example.com/image10.jpg

@@ -13,7 +13,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/subcategories", subcategoryRoutes);
 app.use("/api/products", productRoutes);
-
+app.use("/uploads", express.static("uploads")); // Serve images
 
 
 const PORT = process.env.PORT || 5000;
