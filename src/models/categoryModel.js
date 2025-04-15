@@ -18,18 +18,31 @@ class Category {
     static async getFilteredCategories(search, limit, offset) {
         let query = "SELECT * FROM categories";
         let params = [];
-
+    
         if (search) {
             query += " WHERE name LIKE ?";
             params.push(`%${search}%`);
         }
-
+    
+        // ✅ Ensure limit & offset are valid numbers
+        limit = Number(limit) || 10;
+        offset = Number(offset) || 0;
+    
         query += " ORDER BY id DESC LIMIT ? OFFSET ?";
         params.push(limit, offset);
-
-        const [rows] = await db.execute(query, params);
-        return rows;
+    
+        console.log("Executing Query:", query, "Params:", params);
+    
+        try {
+            // ✅ Use `.query()` instead of `.execute()`
+            const [rows] = await db.query(query, params);
+            return rows;
+        } catch (error) {
+            console.error("❌ SQL Execution Error:", error);
+            throw error;
+        }
     }
+    
 
     // ✅ Get Category by ID
     static async getCategoryById(id) {

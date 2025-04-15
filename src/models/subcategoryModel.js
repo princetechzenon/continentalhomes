@@ -14,24 +14,39 @@ class Subcategory {
         return { id: result.insertId, name, slug, categoryId };
     }
 
-    // ✅ Get All Subcategories (Paginated & Searchable)
-    static async getFilteredSubcategories(search, limit, offset) {
-        let query = `SELECT s.*, c.name AS category_name 
-                     FROM subcategories s 
-                     JOIN categories c ON s.category_id = c.id`;
-        let params = [];
+   // ✅ Get All Subcategories (Paginated & Searchable)
+static async getFilteredSubcategories(search, limit, offset) {
+    let query = `
+        SELECT s.*, c.name AS category_name 
+        FROM subcategories s 
+        JOIN categories c ON s.category_id = c.id`;
+    
+    let params = [];
 
-        if (search) {
-            query += " WHERE s.name LIKE ?";
-            params.push(`%${search}%`);
-        }
-
-        query += " ORDER BY s.id DESC LIMIT ? OFFSET ?";
-        params.push(limit, offset);
-
-        const [rows] = await db.execute(query, params);
-        return rows;
+    if (search) {
+        query += " WHERE s.name LIKE ?";
+        params.push(`%${search}%`);
     }
+
+    query += " ORDER BY s.id DESC LIMIT ? OFFSET ?";
+
+    // ✅ Ensure limit & offset are valid numbers
+    limit = Number(limit) || 10;
+    offset = Number(offset) || 0;
+    params.push(limit, offset);
+
+    console.log("Executing Query:", query, "Params:", params);
+
+    try {
+        // ✅ Use `.query()` instead of `.execute()` for better compatibility
+        const [rows] = await db.query(query, params);
+        return rows;
+    } catch (error) {
+        console.error("❌ SQL Execution Error:", error);
+        throw error;
+    }
+}
+
 
     // ✅ Get Subcategory by ID
     static async getSubcategoryById(id) {
